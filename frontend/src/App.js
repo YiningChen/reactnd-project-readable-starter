@@ -1,21 +1,33 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { fetchCategories } from './actions'
+import './App.css'
 
 class App extends Component {
-  render() {
+  componentDidMount () {
+    this.props.boundFetchCategories()
+  }
+
+  render () {
+    const { categories } = this.props
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className='App'>
+        <ul>
+          {categories.map(({ name }) => <li key={name}>{name}</li>)}
+        </ul>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+function matchStateToProps ({ categories }) {
+  return { categories }
+}
+
+function matchDispatchToProps (dispatch) {
+  return {
+    boundFetchCategories: () => dispatch(fetchCategories())
+  }
+}
+
+export default connect(matchStateToProps, matchDispatchToProps)(App)
