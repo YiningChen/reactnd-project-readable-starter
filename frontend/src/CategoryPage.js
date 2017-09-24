@@ -1,20 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchCategories } from './actions'
+import { fetchCategoryPosts } from './actions'
 
 class CategoryPage extends Component {
   componentDidMount () {
-    this.props.dispatch(fetchCategories())
+    const category = this.props.match.params.category
+    this.props.dispatch(fetchCategoryPosts(category))
   }
 
   render () {
-    const { categories } = this.props
+    const category = this.props.match.params.category
+    const posts = this.props.posts
     return (
-      <div className='category-page'>
+      <div className='post-page'>
+        <h1>{category}</h1>
         <ul>
-          {categories.map(({ name, path }) => (
-            <li key={name}>
-              <a href={path}>{name}</a>
+          {posts.map(post => (
+            <li key={post.id}>
+              {post.title}
             </li>
           ))}
         </ul>
@@ -23,8 +26,8 @@ class CategoryPage extends Component {
   }
 }
 
-function mapStateToProps ({ categories }) {
-  return { categories }
+function mapStateToProps ({ posts }) {
+  return { posts }
 }
 
 export default connect(mapStateToProps)(CategoryPage)
