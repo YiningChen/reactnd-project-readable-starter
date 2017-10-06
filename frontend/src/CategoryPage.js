@@ -11,8 +11,9 @@ class CategoryPage extends Component {
   render () {
     const category = this.props.match.params.category
     const posts = this.props.posts
+    console.warn(posts[0])
     return (
-      <div className='post-page'>
+      <div className='category-page'>
         <h1>{category}</h1>
         <ul>
           {posts.map(post => (
