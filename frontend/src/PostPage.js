@@ -21,7 +21,7 @@ class PostPage extends Component {
         <h1>{details.title}</h1>
         <ul>
           {comments.map((comment) => (
-            <li>
+            <li key={comment.id}>
               {comment.body}
             </li>
           ))}
