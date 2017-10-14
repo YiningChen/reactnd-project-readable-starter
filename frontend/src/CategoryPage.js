@@ -18,7 +18,9 @@ class CategoryPage extends Component {
         <ul>
           {posts.map(post => (
             <li key={post.id}>
-              {post.title}
+              <a href={`category/${post.id}`}>
+                {post.title}
+              </a>
             </li>
           ))}
         </ul>
