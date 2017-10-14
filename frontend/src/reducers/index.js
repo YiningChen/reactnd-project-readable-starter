@@ -3,7 +3,8 @@ import {
   UPDATE_CATEGORIES,
   GET_CATEGORY_POSTS,
   GET_ALL_POSTS,
-  GET_POST_DETIALS 
+  GET_POST_DETAILS,
+  GET_POST_COMMENTS
 } from '../actions'
 
 function categories (state = [], action) {
@@ -22,11 +23,16 @@ function posts (state = [], action) {
 }
 
 function postDetails(state = {}, action) {
-  return action.type === GET_POST_DETIALS ? action.payload : state
+  return action.type === GET_POST_DETAILS ? action.payload : state
+}
+
+function postComments(state = [], action) {
+  return action.type === GET_POST_COMMENTS ? action.payload : state
 }
 
 export default combineReducers({
   categories,
   posts,
-  postDetails
+  postDetails,
+  postComments
 })
