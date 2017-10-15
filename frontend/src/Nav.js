@@ -27,5 +27,5 @@ export default class Nav extends Component {
 }
 
 Nav.propTypes = {
-  links: PropTypes.array.isOptional
+  links: PropTypes.array
 }
