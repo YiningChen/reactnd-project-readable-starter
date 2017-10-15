@@ -30,9 +30,7 @@ class MainPage extends Component {
 
         <h4 className='header-label'>Posts:</h4>
         <div className='collection'>
-          {posts.map(post =>
-            <PostItem key={post.id} post={post} />
-          )}
+          {posts.map(({id}) => <PostItem key={id} id={id} />)}
         </div>
 
       </div>

@@ -22,9 +22,7 @@ class CategoryPage extends Component {
       <div className='category-page'>
         <Nav links={navLinks} />
         <div className='collection'>
-          {posts.map(post =>
-            <PostItem key={post.id} post={post} />
-          )}
+          {posts.map(({id}) => <PostItem key={id} id={id} />)}
         </div>
       </div>
     )
