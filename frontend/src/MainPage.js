@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Nav from './Nav'
 import {
   fetchCategories,
   fetchAllPosts
@@ -15,6 +16,7 @@ class MainPage extends Component {
     const { categories, posts } = this.props
     return (
       <div className='main-page'>
+        <Nav />
 
         <h4 className='header-label'>Categories:</h4>
         <div className='collection'>
