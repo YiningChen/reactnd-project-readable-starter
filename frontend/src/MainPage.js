@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Nav from './Nav'
+import PostItem from './PostItem'
 import {
   fetchCategories,
   fetchAllPosts
@@ -28,15 +29,11 @@ class MainPage extends Component {
         </div>
 
         <h4 className='header-label'>Posts:</h4>
-        <ul>
-          {posts.map(post => (
-            <li key={post.id}>
-              <a href={post.category + '/' + post.id}>
-                {post.title}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className='collection'>
+          {posts.map(post =>
+            <PostItem key={post.id} post={post} />
+          )}
+        </div>
 
       </div>
     )
