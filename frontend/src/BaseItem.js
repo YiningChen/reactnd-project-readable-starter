@@ -43,24 +43,24 @@ export default class BaseItem extends Component {
 
     return (
       <div>
-        <!-- details -->
+        {/* details */}
         <p>
           <strong>author: </strong>{author}<br />
           <strong>score: </strong>{voteScore}<br />
         </p>
-        <!-- upvote button -->
+        {/* upvote button */}
         <a className='base-item btn' onClick={voteUp}>
           <i className='material-icons'>arrow_upward</i>
         </a>
-        <!-- downvote button -->
+        {/* downvote button */}
         <a className='base-item btn' onClick={voteDown}>
           <i className='material-icons'>arrow_downward</i>
         </a>
-        <!-- delete button -->
+        {/* delete button */}
         <a className='base-item btn' onClick={deleteSelf}>
           <i className='material-icons'>delete</i>
         </a>
-        <!-- edit button -->
+        {/* edit button */}
         <a className='base-item btn' onClick={() => {
           if (title) this.setFormTitle(title)
           this.setFormBody(body)
@@ -68,7 +68,7 @@ export default class BaseItem extends Component {
         }}>
           <i className='material-icons'>edit</i>
         </a>
-        <!-- edit form -->
+        {/* edit form */}
         {this.state.editing &&
           <form>
             {title && <strong>Title:</strong>}
