@@ -15,15 +15,17 @@ class MainPage extends Component {
     const { categories, posts } = this.props
     return (
       <div className='main-page'>
-        <h1>Categories</h1>
-        <ul>
+
+        <h4 className='header-label'>Categories:</h4>
+        <div className='collection'>
           {categories.map(({ name, path }) => (
-            <li key={name}>
-              <a href={path}>{name}</a>
-            </li>
+            <a className='collection-item' key={name} href={path}>
+              {name}
+            </a>
           ))}
-        </ul>
-        <h1>Posts</h1>
+        </div>
+
+        <h4 className='header-label'>Posts:</h4>
         <ul>
           {posts.map(post => (
             <li key={post.id}>
@@ -33,6 +35,7 @@ class MainPage extends Component {
             </li>
           ))}
         </ul>
+
       </div>
     )
   }
