@@ -4,7 +4,11 @@ import {
   GET_CATEGORY_POSTS,
   GET_ALL_POSTS,
   GET_POST_DETAILS,
-  GET_POST_COMMENTS
+  GET_POST_COMMENTS,
+  DELETE_POST,
+  EDIT_POST,
+  VOTE_POST_UP,
+  VOTE_POST_DOWN
 } from '../actions'
 
 function categories (state = [], action) {
@@ -24,6 +28,23 @@ function addCommentsToPost (posts, comments) {
   })
 }
 
+function updateObjectInArray (objects, payload, fields) {
+  return objects.map(object => {
+    if (object.id === payload.id) {
+      fields.forEach(field => {
+        object[field] = payload[field]
+      })
+    }
+    return object
+  })
+}
+
+function deleteObjectInArray (objects, id) {
+  return objects.filter(object => {
+    return object.id !== id
+  })
+}
+
 function posts (state = [], action) {
   const payload = action.payload
   switch (action.type) {
@@ -33,6 +54,13 @@ function posts (state = [], action) {
       return payload
     case GET_POST_COMMENTS:
       return addCommentsToPost(state, payload)
+    case DELETE_POST:
+      return deleteObjectInArray(state, payload.id)
+    case EDIT_POST:
+      return updateObjectInArray(state, payload, ['title', 'body'])
+    case VOTE_POST_UP:
+    case VOTE_POST_DOWN:
+      return updateObjectInArray(state, payload, ['voteScore'])
     default:
       return state
   }

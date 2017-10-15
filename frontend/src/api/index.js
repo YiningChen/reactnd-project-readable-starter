@@ -7,7 +7,8 @@ const token = localStorage.token || (localStorage.token = Math.random().toString
 
 const headers = {
   Accept: 'application/json',
-  Authorization: token
+  Authorization: token,
+  'Content-Type': 'application/json'
 }
 
 const getCategories = () =>
@@ -19,11 +20,11 @@ const getCategoryPosts = (category) =>
   fetch(`${api}/${category}/posts`, { headers })
     .then(res => res.json())
 
-const getAllPosts = () => 
+const getAllPosts = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())
 
-const getPostDetails = (postId) => 
+const getPostDetails = (postId) =>
   fetch(`${api}/posts/${postId}`, { headers })
     .then(res => res.json())
 
@@ -31,10 +32,35 @@ const getPostComments = (postId) =>
   fetch(`${api}/posts/${postId}/comments`, { headers })
     .then(res => res.json())
 
+const votePost = (vote) => (postId) => {
+  return fetch(`${api}/posts/${postId}`, {
+    headers,
+    method: 'POST',
+    body: JSON.stringify({option: vote})
+  }).then(res => res.json())
+}
+
+const deletePost = (postId) =>
+  fetch(`${api}/posts/${postId}`, {
+    headers,
+    method: 'DELETE'
+  }).then(res => res.json())
+
+const editPost = (postId, data) =>
+  fetch(`${api}/posts/${postId}`, {
+    headers,
+    method: 'PUT',
+    body: JSON.stringify(data)
+  }).then(res => res.json())
+
 export default {
   getCategories,
   getCategoryPosts,
   getAllPosts,
   getPostDetails,
-  getPostComments
+  getPostComments,
+  deletePost,
+  editPost,
+  votePostUp: votePost('upVote'),
+  votePostDown: votePost('downVote')
 }
