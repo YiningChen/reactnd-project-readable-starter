@@ -12,7 +12,7 @@ export default class Nav extends Component {
             <a className='breadcrumb' href='/'>Main Page</a>
             {links && links.map(({ path, title }) => (
               <a
-                key={title}
+                key={title + path}
                 className='breadcrumb'
                 href={path}
               >
