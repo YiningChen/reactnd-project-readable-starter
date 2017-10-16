@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Nav from './Nav'
 import {
   fetchPostDetails,
   fetchPostComments
@@ -12,13 +13,27 @@ class PostPage extends Component {
     this.props.dispatch(fetchPostComments(postId))
   }
 
+  createNavLinks (post) {
+    const {category, id} = post
+    return [{
+      path: `/${category}`,
+      title: category
+    }, {
+      path: `/${category}/${id}`,
+      title: 'Post Details'
+    }]
+  }
+
   render () {
     const { details, comments } = this.props
+    const navLinks = this.createNavLinks(details)
+
     console.warn(details)
     console.warn(comments)
     return (
       <div className='post-page'>
-        <h1>{details.title}</h1>
+        <Nav links={navLinks} />
+        <h5>{details.title}</h5>
         <ul>
           {comments.map((comment) => (
             <li key={comment.id}>
@@ -32,7 +47,7 @@ class PostPage extends Component {
 }
 
 function mapStateToProps (state) {
-  return { 
+  return {
     details: state.postDetails,
     comments: state.postComments
   }
