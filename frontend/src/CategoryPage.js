@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchCategoryPosts } from './actions'
 import Nav from './Nav'
+import Sorter from './Sorter'
 import PostItem from './PostItem'
 
 class CategoryPage extends Component {
@@ -21,6 +22,7 @@ class CategoryPage extends Component {
     return (
       <div className='category-page'>
         <Nav links={navLinks} />
+        <Sorter dispatch={this.props.dispatch} />
         <div className='collection'>
           {posts.map(({id}) => <PostItem key={id} id={id} />)}
         </div>

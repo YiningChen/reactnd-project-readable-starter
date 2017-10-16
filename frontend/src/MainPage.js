@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Nav from './Nav'
 import PostItem from './PostItem'
+import Sorter from './Sorter'
 import {
   fetchCategories,
   fetchAllPosts
@@ -29,6 +30,7 @@ class MainPage extends Component {
         </div>
 
         <h4 className='header-label'>Posts:</h4>
+        <Sorter dispatch={this.props.dispatch} />
         <div className='collection'>
           {posts.map(({id}) => <PostItem key={id} id={id} />)}
         </div>

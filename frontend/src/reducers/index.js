@@ -8,7 +8,8 @@ import {
   DELETE_POST,
   EDIT_POST,
   VOTE_POST_UP,
-  VOTE_POST_DOWN
+  VOTE_POST_DOWN,
+  SORT_POSTS
 } from '../actions'
 
 function categories (state = [], action) {
@@ -61,6 +62,8 @@ function posts (state = [], action) {
     case VOTE_POST_UP:
     case VOTE_POST_DOWN:
       return updateObjectInArray(state, payload, ['voteScore'])
+    case SORT_POSTS:
+      return state.slice().sort((current, next) => next[payload] - current[payload])
     default:
       return state
   }

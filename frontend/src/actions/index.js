@@ -9,6 +9,7 @@ export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const VOTE_POST_UP = 'VOTE_POST_UP'
 export const VOTE_POST_DOWN = 'VOTE_POST_DOWN'
+export const SORT_POSTS = 'SORT_POSTS'
 
 function callApiThenDispatchType (apiFunction, actionType) {
   return (...args) => (dispatch) => {
@@ -26,3 +27,4 @@ export const deletePost = callApiThenDispatchType(api.deletePost, DELETE_POST)
 export const editPost = callApiThenDispatchType(api.editPost, EDIT_POST)
 export const votePostUp = callApiThenDispatchType(api.votePostUp, VOTE_POST_UP)
 export const votePostDown = callApiThenDispatchType(api.votePostDown, VOTE_POST_DOWN)
+export const sortPosts = (sortBy) => (dispatch) => dispatch({type: SORT_POSTS, payload: sortBy})
