@@ -32,14 +32,6 @@ const getPostComments = (postId) =>
   fetch(`${api}/posts/${postId}/comments`, { headers })
     .then(res => res.json())
 
-const votePost = (vote) => (postId) => {
-  return fetch(`${api}/posts/${postId}`, {
-    headers,
-    method: 'POST',
-    body: JSON.stringify({option: vote})
-  }).then(res => res.json())
-}
-
 const deletePost = (postId) =>
   fetch(`${api}/posts/${postId}`, {
     headers,
@@ -53,6 +45,35 @@ const editPost = (postId, data) =>
     body: JSON.stringify(data)
   }).then(res => res.json())
 
+const votePost = (vote) => (postId) => {
+  return fetch(`${api}/posts/${postId}`, {
+    headers,
+    method: 'POST',
+    body: JSON.stringify({option: vote})
+  }).then(res => res.json())
+}
+
+const deleteComment = (commentId) =>
+  fetch(`${api}/comments/${commentId}`, {
+    headers,
+    method: 'DELETE'
+  }).then(res => res.json())
+
+const editComment = (commentId, data) =>
+  fetch(`${api}/comments/${commentId}`, {
+    headers,
+    method: 'PUT',
+    body: JSON.stringify(data)
+  }).then(res => res.json())
+
+const voteComment = (vote) => (commentId) => {
+  return fetch(`${api}/comments/${commentId}`, {
+    headers,
+    method: 'POST',
+    body: JSON.stringify({option: vote})
+  }).then(res => res.json())
+}
+
 export default {
   getCategories,
   getCategoryPosts,
@@ -62,5 +83,9 @@ export default {
   deletePost,
   editPost,
   votePostUp: votePost('upVote'),
-  votePostDown: votePost('downVote')
+  votePostDown: votePost('downVote'),
+  deleteComment,
+  editComment,
+  voteCommentUp: voteComment('upVote'),
+  voteCommentDown: voteComment('downVote')
 }
