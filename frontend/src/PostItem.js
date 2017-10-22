@@ -51,12 +51,12 @@ class PostItem extends Component {
     return (
       <div className='collection-item avatar'>
         <a href={`/${category}/${id}`}>
-          <i className='material-icons circle teal'>link</i>
+          <span className='post-item title'>{title}</span>
         </a>
-        <span className='post-item title'>{title}</span>
+        <p className='post-body'>{body}</p>
         <p>
           <strong>comments: </strong>
-          {comments ? comments.length : 0}<br />
+          {comments ? comments.length : 0}
         </p>
         <BaseItem
           author={author}

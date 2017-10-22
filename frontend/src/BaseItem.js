@@ -91,7 +91,7 @@ export default class BaseItem extends Component {
 
 BaseItem.propTypes = {
   author: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   body: PropTypes.string.isRequired,
   voteScore: PropTypes.number.isRequired,
   deleteSelf: PropTypes.func.isRequired,
