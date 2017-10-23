@@ -74,6 +74,36 @@ const voteComment = (vote) => (commentId) => {
   }).then(res => res.json())
 }
 
+function generateUUID () {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = Math.random() * 16 | 0
+    const v = c === 'x' ? r : (r & 0x3 | 0x8) // eslint-disable-line
+    return v.toString(16)
+  })
+}
+
+const createComment = (data) => {
+  data.timestamp = Date.now()
+  data.id = generateUUID()
+
+  return fetch(`${api}/comments/`, {
+    headers,
+    method: 'POST',
+    body: JSON.stringify(data)
+  }).then(res => res.json())
+}
+
+const createPost = (data) => {
+  data.timestamp = Date.now()
+  data.id = generateUUID()
+
+  return fetch(`${api}/posts/`, {
+    headers,
+    method: 'POST',
+    body: JSON.stringify(data)
+  }).then(res => res.json())
+}
+
 export default {
   getCategories,
   getCategoryPosts,
@@ -87,5 +117,7 @@ export default {
   deleteComment,
   editComment,
   voteCommentUp: voteComment('upVote'),
-  voteCommentDown: voteComment('downVote')
+  voteCommentDown: voteComment('downVote'),
+  createComment,
+  createPost
 }

@@ -14,6 +14,8 @@ export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const VOTE_COMMENT_UP = 'VOTE_COMMENT_UP'
 export const VOTE_COMMENT_DOWN = 'VOTE_COMMENT_DOWN'
+export const CREATE_COMMENT = 'CREATE_COMMENT'
+// export const CREATE_POST = 'CREATE_POST'
 
 function callApiThenDispatchType (apiFunction, actionType) {
   return (...args) => (dispatch) => {
@@ -36,3 +38,5 @@ export const deleteComment = callApiThenDispatchType(api.deleteComment, DELETE_C
 export const editComment = callApiThenDispatchType(api.editComment, EDIT_COMMENT)
 export const voteCommentUp = callApiThenDispatchType(api.voteCommentUp, VOTE_COMMENT_UP)
 export const voteCommentDown = callApiThenDispatchType(api.voteCommentDown, VOTE_COMMENT_DOWN)
+export const createComment = callApiThenDispatchType(api.createComment, CREATE_COMMENT)
+// export const createPost = callApiThenDispatchType(api.createPost, CREATE_POST)

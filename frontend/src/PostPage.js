@@ -8,22 +8,32 @@ import {
   deleteComment,
   editComment,
   voteCommentUp,
-  voteCommentDown
+  voteCommentDown,
+  createComment
 } from './actions'
 
+const DEFAULT_STATE = {
+  newCommentBody: '',
+  newCommentAuthor: ''
+}
+
 class PostPage extends Component {
-  componentDidMount () {
-    const postId = this.props.match.params.postId
-    this.props.dispatch(fetchPost(postId))
+  constructor (props) {
+    super(props)
+
+    const postId = props.match.params.postId
+    props.dispatch(fetchPost(postId))
+
+    this.state = DEFAULT_STATE
   }
 
-  createNavLinks (post) {
-    const {category, id} = post
+  createNavLinks (params) {
+    const {category, postId} = params
     return [{
       path: `/${category}`,
       title: category
     }, {
-      path: `/${category}/${id}`,
+      path: `/${category}/${postId}`,
       title: 'Post Details'
     }]
   }
@@ -48,19 +58,45 @@ class PostPage extends Component {
     this.props.dispatch(voteCommentDown(id))
   }
 
+  setStateValue (key, event) {
+    this.setState({ [key]: event.target.value })
+  }
+
+  resetState () {
+    this.setState(DEFAULT_STATE)
+  }
+
+  createNewComment (event) {
+    const { dispatch, post } = this.props
+    const data = {
+      body: this.state.newCommentBody,
+      author: this.state.newCommentAuthor,
+      parentId: post.id
+    }
+    dispatch(createComment(data))
+
+    // don't reload page
+    event.preventDefault()
+
+    // empty out form
+    this.resetState()
+  }
+
   render () {
-    const { post, comments } = this.props
-    const navLinks = this.createNavLinks(post)
+    const post = this.props.post || {}
+    const { comments, match } = this.props
+    const navLinks = this.createNavLinks(match.params)
 
     console.warn(post)
     console.warn(comments)
     return (
       <div className='post-page'>
-
         <Nav links={navLinks} />
 
+        {/* Post Details */}
         {post.id && <PostItem id={post.id} />}
 
+        {/* Comments */}
         <div className='collection'>
           {comments.map((comment) => (
             <div key={comment.id} className='collection-item avatar'>
@@ -77,6 +113,28 @@ class PostPage extends Component {
             </div>
           ))}
         </div>
+
+        {/* Add Comment */}
+        <div className='card-panel teal lighten-2'>Add New Comment:</div>
+        <form>
+          <strong>New Comment</strong>
+          <input type='text'
+            onChange={event => this.setStateValue('newCommentBody', event)}
+            value={this.state.newCommentBody}
+          />
+
+          <strong>Author</strong>
+          <input type='text'
+            onChange={event => this.setStateValue('newCommentAuthor', event)}
+            value={this.state.newCommentAuthor}
+          />
+
+          <br />
+          <button type='submit' className='btn' onClick={this.createNewComment.bind(this)}>
+            New Comment<i className='material-icons right'>send</i>
+          </button>
+        </form>
+
       </div>
     )
   }

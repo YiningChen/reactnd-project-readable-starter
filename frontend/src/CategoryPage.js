@@ -4,6 +4,7 @@ import { fetchCategoryPosts } from './actions'
 import Nav from './Nav'
 import Sorter from './Sorter'
 import PostItem from './PostItem'
+import NewPost from './NewPost'
 
 class CategoryPage extends Component {
   componentDidMount () {
@@ -26,6 +27,7 @@ class CategoryPage extends Component {
         <div className='collection'>
           {posts.map(({id}) => id && <PostItem key={id} id={id} />)}
         </div>
+        <NewPost onSubmitAction={() => fetchCategoryPosts(category)} />
       </div>
     )
   }

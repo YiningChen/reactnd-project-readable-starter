@@ -13,7 +13,8 @@ import {
   DELETE_COMMENT,
   EDIT_COMMENT,
   VOTE_COMMENT_UP,
-  VOTE_COMMENT_DOWN
+  VOTE_COMMENT_DOWN,
+  CREATE_COMMENT
 } from '../actions'
 
 function categories (state = [], action) {
@@ -48,6 +49,12 @@ function deleteObjectInArray (objects, id) {
   return objects.filter(object => {
     return object.id !== id
   })
+}
+
+function addObjectToArray (objects, newObject) {
+  const newArray = objects.slice()
+  newArray.push(newObject)
+  return newArray
 }
 
 function posts (state = [{}], action) {
@@ -87,6 +94,8 @@ function comments (state = [], action) {
     case VOTE_COMMENT_UP:
     case VOTE_COMMENT_DOWN:
       return updateObjectInArray(state, payload, ['voteScore'])
+    case CREATE_COMMENT:
+      return addObjectToArray(state, payload)
     default:
       return state
   }
