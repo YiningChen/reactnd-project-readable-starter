@@ -29,15 +29,30 @@ class NewPost extends Component {
     this.setState(DEFAULT_STATE)
   }
 
+  validCategory () {
+    const validCategory = this.state.category !== 'default'
+
+    if (!validCategory) {
+      window.alert('please select valid category')
+    }
+
+    return validCategory
+  }
+
   handleSubmit (event) {
+    // don't reload page
+    event.preventDefault()
+
+    // make sure not default category before submitting
+    if (!this.validCategory()) {
+      return
+    }
+
     const { dispatch, onSubmitAction } = this.props
 
     // create post via api, then update state
     api.createPost(this.state)
       .then(() => dispatch(onSubmitAction()))
-
-    // don't reload page
-    event.preventDefault()
 
     // empty out form
     this.resetState()
