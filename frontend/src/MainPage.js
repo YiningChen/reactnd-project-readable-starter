@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Nav from './Nav'
+import NewPost from './NewPost'
 import PostItem from './PostItem'
 import Sorter from './Sorter'
 import {
@@ -34,6 +35,8 @@ class MainPage extends Component {
         <div className='collection'>
           {posts.map(({id}) => id && <PostItem key={id} id={id} />)}
         </div>
+
+        <NewPost onSubmitAction={fetchAllPosts} />
 
       </div>
     )
