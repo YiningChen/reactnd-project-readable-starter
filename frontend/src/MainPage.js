@@ -32,7 +32,7 @@ class MainPage extends Component {
         <h4 className='header-label'>Posts:</h4>
         <Sorter dispatch={this.props.dispatch} />
         <div className='collection'>
-          {posts.map(({id}) => <PostItem key={id} id={id} />)}
+          {posts.map(({id}) => id && <PostItem key={id} id={id} />)}
         </div>
 
       </div>

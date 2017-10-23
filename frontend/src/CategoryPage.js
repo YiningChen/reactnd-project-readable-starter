@@ -24,7 +24,7 @@ class CategoryPage extends Component {
         <Nav links={navLinks} />
         <Sorter dispatch={this.props.dispatch} />
         <div className='collection'>
-          {posts.map(({id}) => <PostItem key={id} id={id} />)}
+          {posts.map(({id}) => id && <PostItem key={id} id={id} />)}
         </div>
       </div>
     )
