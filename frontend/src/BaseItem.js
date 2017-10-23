@@ -81,7 +81,9 @@ export default class BaseItem extends Component {
             <textarea value={this.state.body}
               onChange={event => this.setFormBody(event.target.value)}
             />
-            <input type='submit' value='Submit' onClick={this.handleSubmit.bind(this)} />
+            <button type='submit' className='btn' onClick={this.handleSubmit.bind(this)}>
+              Save<i className='material-icons right'>save</i>
+            </button>
           </form>
         }
       </div>
