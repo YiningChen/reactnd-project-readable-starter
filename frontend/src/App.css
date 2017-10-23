@@ -2,7 +2,44 @@
   padding-left: 10px;
 }
 
+.breadcrumb {
+  text-transform: capitalize;
+}
+
 .header-label {
   margin-left: 10px;
   color: #ee6e73;
+}
+
+.base-item.btn {
+  margin-right: 10px;
+}
+
+.post-item.title {
+  color: #0097a7;
+}
+
+.post-page p {
+  margin: 0;
+}
+
+.post-page form {
+  padding-left: 72px;
+}
+
+.card-panel {
+  color: white;
+}
+
+.new-post-form {
+  padding-left: 72px;
+  padding-right: 20px;
+}
+
+.sorter {
+  margin-top: 5px;
+}
+
+.sorter .chip {
+  cursor: pointer;
 }
