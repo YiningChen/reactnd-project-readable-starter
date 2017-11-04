@@ -1,6 +1,6 @@
 /* globals fetch, localStorage */
 
-const api = process.env.REACT_APP_API_DOMAIN
+const api = process.env.REACT_APP_API_DOMAIN || 'http://localhost:3001'
 
 const token = localStorage.token || (localStorage.token = Math.random().toString(36).substr(-8))
 
