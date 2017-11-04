@@ -43,3 +43,8 @@
 .sorter .chip {
   cursor: pointer;
 }
+
+.post-not-found-page h1 {
+  color: #0097a7;
+  text-align: center;
+}

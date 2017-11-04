@@ -3,8 +3,10 @@ import { connect } from 'react-redux'
 import Nav from './Nav'
 import PostItem from './PostItem'
 import BaseItem from './BaseItem'
+import PostNotFound from './PostNotFound'
 import {
   fetchPost,
+  fetchPostComments,
   deleteComment,
   editComment,
   voteCommentUp,
@@ -20,11 +22,14 @@ const DEFAULT_STATE = {
 class PostPage extends Component {
   constructor (props) {
     super(props)
-
-    const postId = props.match.params.postId
-    props.dispatch(fetchPost(postId))
-
     this.state = DEFAULT_STATE
+  }
+
+  componentDidMount () {
+    const props = this.props
+    const postId = this.props.match.params.postId
+    props.dispatch(fetchPost(postId))
+    props.dispatch(fetchPostComments(postId))
   }
 
   createNavLinks (params) {
@@ -36,6 +41,10 @@ class PostPage extends Component {
       path: `/${category}/${postId}`,
       title: 'Post Details'
     }]
+  }
+
+  deletePost () {
+    this.props.history.push('/')
   }
 
   delete (id) {
@@ -84,57 +93,59 @@ class PostPage extends Component {
 
   render () {
     const post = this.props.post || {}
+    const postExists = post.id && !post.deleted
     const { comments, match } = this.props
     const navLinks = this.createNavLinks(match.params)
 
-    console.warn(post)
-    console.warn(comments)
     return (
       <div className='post-page'>
         <Nav links={navLinks} />
+        {!postExists
+          ? <PostNotFound />
+          : <div className='post'>
+            {/* Post Details */}
+            {post.id && <PostItem id={post.id} deleteSelf={() => this.deletePost()} />}
 
-        {/* Post Details */}
-        {post.id && <PostItem id={post.id} />}
-
-        {/* Comments */}
-        <div className='collection'>
-          {comments.map((comment) => (
-            <div key={comment.id} className='collection-item avatar'>
-              <p>{comment.body}</p>
-              <BaseItem
-                author={comment.author}
-                body={comment.body}
-                voteScore={comment.voteScore}
-                deleteSelf={() => this.delete(comment.id)}
-                edit={(data) => this.edit(comment.id, data)}
-                voteUp={() => this.voteUp(comment.id)}
-                voteDown={() => this.voteDown(comment.id)}
-              />
+            {/* Comments */}
+            <div className='collection'>
+              {comments.map((comment) => (
+                <div key={comment.id} className='collection-item avatar'>
+                  <p>{comment.body}</p>
+                  <BaseItem
+                    author={comment.author}
+                    body={comment.body}
+                    voteScore={comment.voteScore}
+                    deleteSelf={() => this.delete(comment.id)}
+                    edit={(data) => this.edit(comment.id, data)}
+                    voteUp={() => this.voteUp(comment.id)}
+                    voteDown={() => this.voteDown(comment.id)}
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        {/* Add Comment */}
-        <div className='card-panel teal lighten-2'>Add New Comment:</div>
-        <form>
-          <strong>New Comment</strong>
-          <input type='text'
-            onChange={event => this.setStateValue('newCommentBody', event)}
-            value={this.state.newCommentBody}
-          />
+            {/* Add Comment */}
+            <div className='card-panel teal lighten-2'>Add New Comment:</div>
+            <form>
+              <strong>New Comment</strong>
+              <input type='text'
+                onChange={event => this.setStateValue('newCommentBody', event)}
+                value={this.state.newCommentBody}
+              />
 
-          <strong>Author</strong>
-          <input type='text'
-            onChange={event => this.setStateValue('newCommentAuthor', event)}
-            value={this.state.newCommentAuthor}
-          />
+              <strong>Author</strong>
+              <input type='text'
+                onChange={event => this.setStateValue('newCommentAuthor', event)}
+                value={this.state.newCommentAuthor}
+              />
 
-          <br />
-          <button type='submit' className='btn' onClick={this.createNewComment.bind(this)}>
-            New Comment<i className='material-icons right'>send</i>
-          </button>
-        </form>
-
+              <br />
+              <button type='submit' className='btn' onClick={this.createNewComment.bind(this)}>
+                New Comment<i className='material-icons right'>send</i>
+              </button>
+            </form>
+          </div>
+        }
       </div>
     )
   }
