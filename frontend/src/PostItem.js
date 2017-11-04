@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import BaseItem from './BaseItem'
@@ -50,9 +51,9 @@ class PostItem extends Component {
 
     return (
       <div className='collection-item avatar'>
-        <a href={`/${category}/${id}`}>
+        <Link to={`/${category}/${id}`}>
           <span className='post-item title'>{title}</span>
-        </a>
+        </Link>
         <p className='post-body'>{body}</p>
         <p>
           <strong>comments: </strong>

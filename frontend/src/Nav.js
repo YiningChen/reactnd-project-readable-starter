@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 export default class Nav extends Component {
@@ -9,15 +10,15 @@ export default class Nav extends Component {
       <nav>
         <div className='nav-wrapper'>
           <div className='col s12'>
-            <a className='breadcrumb' href='/'>Main Page</a>
+            <Link className='breadcrumb' to='/'>Main Page</Link>
             {links && links.map(({ path, title }) => (
-              <a
+              <Link
                 key={title + path}
                 className='breadcrumb'
-                href={path}
+                to={path}
               >
                 {title}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
