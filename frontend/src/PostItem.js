@@ -28,8 +28,9 @@ class PostItem extends Component {
   }
 
   delete () {
-    const {dispatch, id} = this.props
+    const {dispatch, id, deleteSelf} = this.props
     dispatch(deletePost(id))
+    deleteSelf && deleteSelf()
   }
 
   edit (data) {
@@ -76,7 +77,8 @@ class PostItem extends Component {
 
 PostItem.propTypes = {
   id: PropTypes.string.isRequired,
-  posts: PropTypes.array
+  posts: PropTypes.array,
+  deleteSelf: PropTypes.func
 }
 
 function mapStateToProps ({ posts }) {
