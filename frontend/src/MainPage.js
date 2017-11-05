@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import NewPost from './NewPost'
 import PostItem from './PostItem'
@@ -25,9 +24,9 @@ class MainPage extends Component {
         <h4 className='header-label'>Categories:</h4>
         <div className='collection'>
           {categories.map(({ name, path }) => (
-            <Link className='collection-item' key={name} to={path}>
+            <a className='collection-item' key={name} href={path}>
               {name}
-            </Link>
+            </a>
           ))}
         </div>
 
